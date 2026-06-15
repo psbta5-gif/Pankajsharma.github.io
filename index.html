@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pankaj Sharma — Tourism Research & Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A2F;
+    --cream:#F5F0E6;
+    --rust:#C9622D;
+    --sage:#5C7A6B;
+    --teal:#2D4A53;
+    --line: rgba(27,42,47,0.12);
+    --max: 880px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,240,230,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem;
+    letter-spacing:0.02em;
+  }
+  .nav-mark span{ color:var(--rust); }
+  .nav-links{ display:flex; gap:32px; list-style:none; }
+  .nav-links a{
+    text-decoration:none; font-size:0.92rem; font-weight:500;
+    color:var(--ink); position:relative; padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0;
+    width:0; height:2px; background:var(--rust);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg, var(--teal) 0%, var(--ink) 100%);
+    color:var(--cream);
+    overflow:hidden;
+    padding:96px 0 80px;
+  }
+  .contour-svg{
+    position:absolute; inset:0; width:100%; height:100%;
+    opacity:0.22; pointer-events:none;
+  }
+  .hero .wrap{ position:relative; z-index:2; }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--rust); margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.2rem);
+    line-height:1.05;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--sage);
+    font-weight:400;
+  }
+  .hero p.lede{
+    font-size:1.15rem; max-width:560px;
+    color:rgba(245,240,230,0.82);
+    margin-bottom:32px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:28px;
+    font-family:'JetBrains Mono', monospace; font-size:0.82rem;
+    color:rgba(245,240,230,0.65);
+  }
+  .hero-meta strong{ color:var(--cream); display:block; font-size:0.78rem; letter-spacing:0.06em; }
+
+  /* ===== SECTIONS ===== */
+  section{ padding:80px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  .section-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--sage); margin-bottom:14px;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 4vw, 2.4rem);
+    margin-bottom:36px;
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap:48px;
+    align-items:start;
+  }
+  .about-grid p{ color:rgba(27,42,47,0.85); margin-bottom:16px; }
+  .about-grid p strong{ color:var(--ink); border-bottom:2px solid var(--rust); }
+
+  .stat-card{
+    border:1px solid var(--line); border-radius:4px;
+    padding:22px 24px; margin-bottom:14px;
+    background:rgba(255,255,255,0.4);
+  }
+  .stat-card .num{
+    font-family:'Fraunces', serif; font-size:2.1rem; font-weight:700;
+    color:var(--teal); line-height:1;
+  }
+  .stat-card .label{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    color:var(--sage); text-transform:uppercase; letter-spacing:0.08em;
+    margin-top:6px;
+  }
+
+  /* RESEARCH / PUBLICATIONS */
+  .pub-list{ list-style:none; }
+  .pub-item{
+    padding:24px 0; border-top:1px solid var(--line);
+    display:grid; grid-template-columns: 90px 1fr; gap:24px;
+  }
+  .pub-item:first-child{ border-top:none; }
+  .pub-year{
+    font-family:'JetBrains Mono', monospace; font-size:0.85rem;
+    color:var(--rust); padding-top:4px;
+  }
+  .pub-title{ font-family:'Fraunces', serif; font-size:1.15rem; font-weight:600; margin-bottom:6px; }
+  .pub-venue{ font-size:0.9rem; color:var(--sage); font-style:italic; }
+  .pub-tag{
+    display:inline-block; margin-top:10px;
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem;
+    background:rgba(92,122,107,0.15); color:var(--teal);
+    padding:3px 9px; border-radius:3px; letter-spacing:0.04em;
+  }
+
+  /* SKILLS / ANALYTICS */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:24px;
+  }
+  .skill-card{
+    border:1px solid var(--line); border-radius:4px; padding:24px;
+    background:rgba(255,255,255,0.4);
+  }
+  .skill-card h3{ font-size:1.05rem; margin-bottom:10px; color:var(--teal); }
+  .skill-card ul{ list-style:none; font-size:0.92rem; color:rgba(27,42,47,0.75); }
+  .skill-card li{ padding:3px 0; }
+  .skill-card li::before{ content:'— '; color:var(--rust); font-family:'JetBrains Mono', monospace; }
+
+  /* CV / TIMELINE */
+  .timeline{ list-style:none; }
+  .tl-item{
+    display:grid; grid-template-columns:140px 1fr; gap:24px;
+    padding:20px 0; border-top:1px solid var(--line);
+  }
+  .tl-item:first-child{ border-top:none; }
+  .tl-date{
+    font-family:'JetBrains Mono', monospace; font-size:0.82rem; color:var(--sage);
+    padding-top:2px;
+  }
+  .tl-role{ font-weight:600; font-family:'Fraunces', serif; font-size:1.05rem; }
+  .tl-org{ font-size:0.9rem; color:var(--sage); margin-top:2px; }
+
+  .cv-download{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:32px; padding:13px 26px;
+    background:var(--ink); color:var(--cream);
+    text-decoration:none; border-radius:3px;
+    font-family:'JetBrains Mono', monospace; font-size:0.85rem;
+    letter-spacing:0.06em; transition:background .2s ease;
+  }
+  .cv-download:hover{ background:var(--rust); }
+
+  /* CONTACT */
+  .contact-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px;
+  }
+  .contact-grid h2{ font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:18px; }
+  .contact-links{ list-style:none; margin-top:24px; }
+  .contact-links li{ padding:10px 0; border-top:1px solid var(--line); }
+  .contact-links li:first-child{ border-top:none; }
+  .contact-links a{
+    text-decoration:none; font-family:'JetBrains Mono', monospace;
+    font-size:0.92rem; display:flex; justify-content:space-between;
+    align-items:center;
+  }
+  .contact-links a span:last-child{ color:var(--sage); }
+  .contact-links a:hover span:last-child{ color:var(--rust); }
+
+  footer{
+    text-align:center; padding:32px 0;
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem;
+    color:var(--sage);
+  }
+
+  @media (max-width: 720px){
+    .about-grid, .contact-grid{ grid-template-columns:1fr; }
+    .pub-item, .tl-item{ grid-template-columns:1fr; gap:8px; }
+    .nav-links{ gap:18px; }
+    .nav-links a{ font-size:0.82rem; }
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .contour-svg{ animation:none !important; }
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--rust); outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">Pankaj<span>.</span>Sharma</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#analytics">Analytics</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="contour-svg" viewBox="0 0 1200 700" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#F5F0E6" stroke-width="1.2">
+      <path d="M-50,620 C150,560 300,640 450,580 C600,520 750,600 900,540 C1050,480 1150,560 1280,500" opacity="0.5"/>
+      <path d="M-50,560 C180,500 330,580 480,520 C630,460 780,540 930,480 C1080,420 1180,500 1280,440" opacity="0.4"/>
+      <path d="M-50,500 C200,440 360,520 510,460 C660,400 810,480 960,420 C1110,360 1200,440 1280,380" opacity="0.35"/>
+      <path d="M-50,440 C220,380 390,460 540,400 C690,340 840,420 990,360 C1140,300 1220,380 1280,320" opacity="0.28"/>
+      <path d="M-50,380 C240,320 420,400 570,340 C720,280 870,360 1020,300 C1170,240 1230,320 1280,260" opacity="0.2"/>
+      <path d="M-50,320 C260,260 450,340 600,280 C750,220 900,300 1050,240 C1190,190 1230,260 1280,210" opacity="0.14"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="hero-eyebrow">Digital Marketing &middot; Tourism Management &middot; Business Analytics</div>
+    <h1>Pankaj Sharma<br><em>Tourism Researcher &amp; Analytics Educator</em></h1>
+    <p class="lede">Ph.D.-qualified, UGC-NET JRF educator with 6+ years of teaching and research experience at Lovely Professional University and HP University. I study mobility and competitiveness across the Trans-Himalayan corridor, and teach practice-first digital marketing and analytics.</p>
+    <div class="hero-meta">
+      <div><strong>PhD, Tourism Management</strong>UGC-NET JRF Qualified</div>
+      <div><strong>Methods</strong>SEM &middot; CFA &middot; PLS-SEM &middot; ARDL</div>
+      <div><strong>Based In</strong>Bilaspur, Himachal Pradesh</div>
+      <div><strong>Experience</strong>6+ Years Teaching &amp; Research</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-label">01 — About</div>
+    <div class="about-grid">
+      <div>
+        <p>Pankaj is an <strong>Assistant Professor at Lovely Professional University, Jalandhar</strong> (April 2024 – present), where he teaches Digital Marketing for Tourism, Tourism Marketing, Hotel Operations, and Travel Agency Management at UG &amp; PG levels. He designs outcome-based curricula with CO-PO mapping aligned to UGC guidelines and mentors student research.</p>
+        <p>Before LPU, he spent five years as <strong>Senior Research Fellow &amp; Guest Faculty at Himachal Pradesh University, Shimla</strong> (2019–2024), teaching PG MTTM/BTTM courses and conducting doctoral research on mountaineering and trekking tourism in the tribal districts of Himachal Pradesh.</p>
+        <p>He is now extending that research into a five-paper series on climate stability as a destination-competitiveness pillar, while building a second track in <strong>business analytics</strong> — SQL, Power BI, and data storytelling — toward teaching roles in that space.</p>
+      </div>
+      <div>
+        <div class="stat-card">
+          <div class="num">6+</div>
+          <div class="label">Years Teaching &amp; Research</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">4</div>
+          <div class="label">Peer-Reviewed Publications</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">PhD</div>
+          <div class="label">Tourism Management, UGC-NET JRF</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-label">02 — Research &amp; Publications</div>
+    <div class="section-head"><h2>Selected work</h2></div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <div class="pub-year">2026<br>(in prep)</div>
+        <div>
+          <div class="pub-title">Climate Stability as a Competitive Pillar: Extending the Dwyer–Kim Framework for High-Altitude Destinations</div>
+          <div class="pub-venue">Targeted: Journal of Travel Research / Tourism Management</div>
+          <span class="pub-tag">Paper 5 of 5 — Spiti Valley &amp; Ladakh series</span>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">Peer-<br>Reviewed</div>
+        <div>
+          <div class="pub-title">Adventure Tourism in Bilaspur: A Framework for Assessment and Strategic Development</div>
+          <div class="pub-venue">Vyas, N., Kumari, B., &amp; Sharma, P. — International Journal of Innovative Science and Research Technology (IJISRT), ISSN: 2456-2165</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">Peer-<br>Reviewed</div>
+        <div>
+          <div class="pub-title">Impacts of Mountaineering and Trekking Tourism in the Tribal Districts of Himachal Pradesh, India</div>
+          <div class="pub-venue">Pankaj Sharma, Barjesh Kumari, Nitin Vyas</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Challenges of Digital Adoption for Women in India's Tourism Gig Economy</div>
+          <div class="pub-venue">Dwivedi, S. K., Bharti, M., &amp; Sharma, P. — RESEARCH HUB International Multidisciplinary Research Journal</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">Book<br>Chapter</div>
+        <div>
+          <div class="pub-title">Digital Integration for Higher Education 4.0: Harnessing AI, IoT, Blockchain, and Gamification for Transformative Learning Ecosystems</div>
+          <div class="pub-venue">Mandeep Bharti, Pankaj Sharma, Barjesh Kumari, Santosh Kumar — Higher Education 4.0: Strategies for Digital Success</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="section-head" style="margin-top:48px;"><h2>Conference papers presented</h2></div>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <div class="pub-year">SDGMP<br>2023</div>
+        <div>
+          <div class="pub-title">Film Tourism in Himachal Pradesh: The Role of Films in Tourist Decision-Making</div>
+          <div class="pub-venue">Kumar, R., Kumar, S., Sharma, P., &amp; Chauhan, N. — 4th International Conference on Sustainable Developmental Goals and Management Practices, LPU</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">ICBSDIS<br>2023</div>
+        <div>
+          <div class="pub-title">Prospects and Opportunities of Geographical Indications in Tourism: A Case Study of Himachal Pradesh</div>
+          <div class="pub-venue">Vyas, N., Kamal, V., &amp; Sharma, P. — Wazir Ram Singh Government College, Kangra</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">iCARE<br>2024</div>
+        <div>
+          <div class="pub-title">Investigating the Impact of AI Usefulness and Cost on AI Usage Intention among Indian Students</div>
+          <div class="pub-venue">Rohit Chauhan, Mandeep Bharti, Pankaj Sharma — Chandigarh School of Business, CGC Jhanjeri, Mohali</div>
+        </div>
+      </li>
+      <li class="pub-item">
+        <div class="pub-year">Parul<br>Univ.</div>
+        <div>
+          <div class="pub-title">Artificial Intelligence in Tourism: Enhancing Experiences and Streamlining Operations</div>
+          <div class="pub-venue">Pankaj Sharma, Barjesh Kumari, Rohit Chauhan — Faculty of Hotel Management and Catering Technology, Parul University, Vadodara</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="analytics">
+  <div class="wrap">
+    <div class="section-label">03 — Business Analytics Practice</div>
+    <div class="section-head"><h2>Tools &amp; portfolio projects</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Digital Marketing</h3>
+        <ul>
+          <li>Social media marketing &amp; growth (Instagram, LinkedIn)</li>
+          <li>Content strategy &amp; SEO copywriting</li>
+          <li>Reels, carousels &amp; video production (Canva, Adobe Express)</li>
+          <li>Hashtag &amp; keyword strategy</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>SQL &amp; Spreadsheets</h3>
+        <ul>
+          <li>Joins &amp; aggregate functions</li>
+          <li>Pivot tables, VLOOKUP, XLOOKUP, CORREL</li>
+          <li>HackerRank SQL (Basic) — certified, May 2026</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Power BI Projects</h3>
+        <ul>
+          <li>DGCA international air-traffic dashboard — bubble maps, freight visualisation</li>
+          <li>Four tourism analytics projects: Himachal Pradesh &amp; Mount Abu (descriptive stats, trend analysis, dashboards)</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Quantitative Research</h3>
+        <ul>
+          <li>SEM &amp; CFA, PLS-SEM model validation</li>
+          <li>ARDL time-series econometrics</li>
+          <li>Survey-based mountaineering &amp; trekking research</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cv">
+  <div class="wrap">
+    <div class="section-label">04 — CV</div>
+    <div class="section-head"><h2>Background</h2></div>
+    <ul class="timeline">
+      <li class="tl-item">
+        <div class="tl-date">Apr 2024 — Present</div>
+        <div>
+          <div class="tl-role">Assistant Professor, Tourism &amp; Hospitality Management</div>
+          <div class="tl-org">Lovely Professional University, Jalandhar</div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">Jan 2019 — Mar 2024</div>
+        <div>
+          <div class="tl-role">Senior Research Fellow &amp; Guest Faculty</div>
+          <div class="tl-org">Himachal Pradesh University (IVS), Shimla</div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2025</div>
+        <div>
+          <div class="tl-role">Ph.D., Tourism Management</div>
+          <div class="tl-org">HP University (IVS), Shimla — UGC-NET JRF, Jan 2019</div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2012 — 2014</div>
+        <div>
+          <div class="tl-role">M.T.A., Master in Tourism Administration</div>
+          <div class="tl-org">HP University, Shimla — First Division</div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">2009 — 2012</div>
+        <div>
+          <div class="tl-role">B.T.A., Bachelor in Tourism Administration</div>
+          <div class="tl-org">HP University, Shimla — First Division</div>
+        </div>
+      </li>
+    </ul>
+    <a class="cv-download" href="Pankaj_Sharma_CV.pdf" download>Download full CV (PDF) →</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">05 — Contact</div>
+        <h2>Let's talk research, teaching, or analytics.</h2>
+        <p style="color:rgba(27,42,47,0.7); max-width:420px;">Open to collaboration on Trans-Himalayan tourism research, guest lectures on quantitative methods, or analytics teaching opportunities.</p>
+      </div>
+      <ul class="contact-links">
+        <li><a href="mailto:ps.bta5@gmail.com"><span>Email</span><span>ps.bta5@gmail.com</span></a></li>
+        <li><a href="tel:+919418114583"><span>Phone</span><span>+91-9418114583</span></a></li>
+        <li><a href="#"><span>LinkedIn</span><span>linkedin.com/in/pankajsharma</span></a></li>
+        <li><a href="#"><span>Instagram</span><span>@academicpvtltd</span></a></li>
+        <li><a href="#"><span>Location</span><span>Bilaspur, Himachal Pradesh</span></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>Jalandhar, Punjab, India &middot; Built with intent &middot; © 2026</footer>
+
+</body>
+</html>
